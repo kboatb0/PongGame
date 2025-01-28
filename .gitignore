@@ -1,2 +1,3 @@
 .vscode/
 CMakeUserPresets.json
+cmake-build-debug/

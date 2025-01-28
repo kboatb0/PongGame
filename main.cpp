@@ -7,8 +7,8 @@ int main() {
     const int SCREEN_WIDTH = 900;
     const int SCREEN_HEIGHT = 900;
     Ball ball(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-    PlayerPaddle pp(7, SCREEN_HEIGHT / 2);
-    ComputerPaddle cc (SCREEN_WIDTH - 27, SCREEN_HEIGHT / 2);
+    PlayerPaddle playerPaddle(7, SCREEN_HEIGHT / 2);
+    ComputerPaddle computerPaddle (SCREEN_WIDTH - 27, SCREEN_HEIGHT / 2);
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "myPong");
     SetTargetFPS(60);
@@ -17,8 +17,8 @@ int main() {
         BeginDrawing();
             ClearBackground(BLACK);
             ball.drawCircle();
-            pp.drawPaddle();
-            cc.drawPaddle();
+            playerPaddle.drawPaddle();
+            computerPaddle.drawPaddle();
         EndDrawing();
 
     }

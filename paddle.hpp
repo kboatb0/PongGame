@@ -45,7 +45,7 @@ public:
 
     void drawPaddle() override {
         Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
-        DrawRectangleRounded(rec, 2, 1.1, WHITE);
+        DrawRectangleRounded(rec, 1.1, 32, WHITE);
     }
 };
 
@@ -57,6 +57,7 @@ public:
     }
 
     void drawPaddle() override {
-        DrawRectangle(getRecPosX(), getRecPosY(), getWidth(), getHeight(), WHITE);
+        Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
+        DrawRectangleRounded(rec, 1.1, 32, WHITE);
     }
 };
