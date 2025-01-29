@@ -1,4 +1,3 @@
-#include <iostream>
 #include <raylib.h>
 #include "ball.hpp"
 #include "paddle.hpp"
@@ -17,8 +16,13 @@ int main() {
         BeginDrawing();
             ClearBackground(BLACK);
             ball.drawCircle();
+            ball.moveBall();
+
             playerPaddle.drawPaddle();
+            playerPaddle.movePlayerPaddle();
+            
             computerPaddle.drawPaddle();
+            computerPaddle.moveComputerPaddle(ball);
         EndDrawing();
 
     }

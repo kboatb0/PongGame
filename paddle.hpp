@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+// #include "ball.hpp"
 
 class Paddle{
 private:
@@ -8,6 +9,7 @@ private:
     int recPosY = 0;
     int width = 20;
     int height = 170;
+    int moveSpeed = 6;
 public:
     void setRecPosX(int PosX) {
         recPosX = PosX;
@@ -17,7 +19,7 @@ public:
         recPosY = PosY;
     }
 
-    int getRecPosX()  {
+    int getRecPosX() {
         return recPosX;
     }
 
@@ -31,10 +33,18 @@ public:
 
     int getHeight() {
         return height;
+    }
+
+    int getMoveSpeed() {
+        return moveSpeed;
     } 
 
-    virtual void drawPaddle() = 0;
+    void drawPaddle() {
+        Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
+        DrawRectangleRounded(rec, 0.8, 16, WHITE);
+    }
 };
+
 
 class PlayerPaddle : public Paddle{
 public:
@@ -43,11 +53,16 @@ public:
         setRecPosY(recPosY - getHeight() / 2);
     }
 
-    void drawPaddle() override {
-        Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
-        DrawRectangleRounded(rec, 1.1, 32, WHITE);
+    void movePlayerPaddle() {
+        if (IsKeyDown(KEY_UP) && getRecPosY() > 0){
+            setRecPosY(getRecPosY() - getMoveSpeed());
+        }  
+        if (IsKeyDown(KEY_DOWN) && getRecPosY() < GetScreenHeight() - getHeight()) {
+            setRecPosY(getRecPosY() + getMoveSpeed());
+        }
     }
 };
+
 
 class ComputerPaddle : public Paddle{
 public:
@@ -56,8 +71,11 @@ public:
         setRecPosY(recPosY - getHeight() / 2);
     }
 
-    void drawPaddle() override {
-        Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
-        DrawRectangleRounded(rec, 1.1, 32, WHITE);
+    void moveComputerPaddle(Ball ball) {
+        if (ball.getBallY() <= getRecPosY() + (getHeight() / 2) && getRecPosY() > 0) {
+            setRecPosY(getRecPosY() - getMoveSpeed());
+        } else if (ball.getBallY() >= getRecPosY() + (getHeight() / 2) && getRecPosY() < GetScreenHeight() - getHeight()) {
+            setRecPosY(getRecPosY() + getMoveSpeed());
+        }
     }
 };
