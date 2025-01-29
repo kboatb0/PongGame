@@ -1,16 +1,17 @@
 #pragma once
 
 #include <raylib.h>
-// #include "ball.hpp"
 
 class Paddle{
 private:
     int recPosX = 0;
     int recPosY = 0;
-    int width = 20;
-    int height = 170;
-    int moveSpeed = 6;
+    const int width = 20;
+    const int height = 170;
+    const int moveSpeed = 5;
 public:
+
+    // Getters and Setters
     void setRecPosX(int PosX) {
         recPosX = PosX;
     }
@@ -19,26 +20,27 @@ public:
         recPosY = PosY;
     }
 
-    int getRecPosX() {
+    int getRecPosX() const {
         return recPosX;
     }
 
-    int getRecPosY() {
+    int getRecPosY() const {
         return recPosY;
     }
 
-    int getWidth() {
+    int getWidth() const {
         return width;
     } 
 
-    int getHeight() {
+    int getHeight() const {
         return height;
     }
 
-    int getMoveSpeed() {
+    int getMoveSpeed() const {
         return moveSpeed;
     } 
 
+    // Draw the paddles
     void drawPaddle() {
         Rectangle rec = {(float)getRecPosX(), (float)getRecPosY(), (float)getWidth(), (float)getHeight()};
         DrawRectangleRounded(rec, 0.8, 16, WHITE);
@@ -48,11 +50,13 @@ public:
 
 class PlayerPaddle : public Paddle{
 public:
+    // constructor
     PlayerPaddle(int recPosX, int recPosY) {
         setRecPosX(recPosX);
         setRecPosY(recPosY - getHeight() / 2);
     }
 
+    // Move the Player Paddle
     void movePlayerPaddle() {
         if (IsKeyDown(KEY_UP) && getRecPosY() > 0){
             setRecPosY(getRecPosY() - getMoveSpeed());
@@ -71,10 +75,11 @@ public:
         setRecPosY(recPosY - getHeight() / 2);
     }
 
-    void moveComputerPaddle(Ball ball) {
-        if (ball.getBallY() <= getRecPosY() + (getHeight() / 2) && getRecPosY() > 0) {
+    // Move the AI paddle
+    void moveComputerPaddle(const Ball& ball) {
+        if (ball.getBallY() <= getRecPosY() && getRecPosY() > 0) {
             setRecPosY(getRecPosY() - getMoveSpeed());
-        } else if (ball.getBallY() >= getRecPosY() + (getHeight() / 2) && getRecPosY() < GetScreenHeight() - getHeight()) {
+        } else if (ball.getBallY() >= getRecPosY() + getHeight() && getRecPosY() < GetScreenHeight() - getHeight()) {
             setRecPosY(getRecPosY() + getMoveSpeed());
         }
     }
